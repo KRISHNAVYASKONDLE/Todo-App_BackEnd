@@ -23,6 +23,12 @@ public class TodoResource {
 		this.td=td;
 	}
 	
+	@GetMapping(path="/basicauth")
+	public String validatetoken()
+	{
+		return "valid token";
+	}
+	
 	@GetMapping(path="/users/{username}")
 	public List<Todo> retrievetodos(@PathVariable String username)
 	{
@@ -49,13 +55,13 @@ public class TodoResource {
 		td.updateTodo(todo);
 		System.out.println("todo is "+todo);
 		return todo;
-	}
+	}	
 	
 	@PostMapping(path="/users/{username}/todos")
 	public Todo CreateTodo(@PathVariable String username,@RequestBody Todo todo )
 	{
 	
-		Todo  createtodo=td.addTodo(username, todo.getDescription(), todo.getTargetDate(), todo.isDone());
+		Todo  createtodo=td.addTodo(todo.getUsername(), todo.getDescription(), todo.getTargetDate(), todo.isDone());
 	   return createtodo;
 	}
 	
