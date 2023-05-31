@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class BasicAuthenticationSecurityConfiguration {
 
 	
-	@Bean
+//	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		//this is for basic authentication,disablecsrf,stateless(no session validation)
 		
