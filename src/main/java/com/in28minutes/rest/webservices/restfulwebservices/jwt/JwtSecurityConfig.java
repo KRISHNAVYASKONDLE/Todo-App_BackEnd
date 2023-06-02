@@ -49,32 +49,25 @@ public class JwtSecurityConfig {
         
         // h2-console is a servlet 
         // https://github.com/spring-projects/spring-security/issues/12310
-    	 return httpSecurity
-                 .csrf(AbstractHttpConfigurer::disable) // (1)
-                 .sessionManagement(
-                         session -> 
-                             session.sessionCreationPolicy(
-                                 SessionCreationPolicy.STATELESS)) // (2)
-                 .authorizeRequests(
-                         auth -> 
-                             auth.mvcMatchers("/authenticate", "/actuator", "/actuator/*")
-                                 .permitAll()
-                                 .antMatchers(HttpMethod.OPTIONS,"/**")
-                                 .permitAll()
-                                 .anyRequest()
-                                 .authenticated()) // (3)
-                 .oauth2ResourceServer(
-                         OAuth2ResourceServerConfigurer::jwt) // (4)
-                 .exceptionHandling(
-                         (ex) -> 
-                             ex.authenticationEntryPoint(
-                                 new BearerTokenAuthenticationEntryPoint())
-                               .accessDeniedHandler(
-                                 new BearerTokenAccessDeniedHandler()))
-                 .httpBasic(
-                         Customizer.withDefaults()) // (5)
-                 .build();
-    }
+    	  return httpSecurity
+                  .authorizeHttpRequests(auth -> auth
+                      .antMatchers("/authenticate").permitAll()
+                      .requestMatchers(PathRequest.toH2Console()).permitAll() // h2-console is a servlet and NOT recommended for a production
+                      .antMatchers(HttpMethod.OPTIONS,"/**")
+                      .permitAll()
+                      .anyRequest()
+                      .authenticated())
+                  .csrf(AbstractHttpConfigurer::disable)
+                  .sessionManagement(session -> session.
+                      sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                  .oauth2ResourceServer(
+                          OAuth2ResourceServerConfigurer::jwt)
+                  .httpBasic(
+                          Customizer.withDefaults())
+                  .headers(header -> {header.
+                      frameOptions().sameOrigin();})
+                  .build();
+      }
 
     @Bean
     public AuthenticationManager authenticationManager(
@@ -86,8 +79,8 @@ public class JwtSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("in28minutes")
-                                .password("{noop}dummy")
+        UserDetails user = User.withUsername("as")
+                                .password("{noop}asdf")
                                 .authorities("read")
                                 .roles("USER")
                                 .build();
