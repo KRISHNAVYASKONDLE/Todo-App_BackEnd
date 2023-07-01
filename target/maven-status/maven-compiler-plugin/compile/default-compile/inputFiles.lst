@@ -5,9 +5,11 @@ C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webserv
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\jwt\JwtAuthenticationController.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\todo\TodoResource.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\todo\TodoService.java
+C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\todo\TodoRepository.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\helloworld\HelloWorldController.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\jwt\JwtTokenService.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\jwt\JwtSecurityConfig.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\RestfulWebServicesApplication.java
+C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\todo\TodoResourceJpa.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\helloworld\HelloWorldBean.java
 C:\Projects\01-rest-api-starting-code\src\main\java\com\in28minutes\rest\webservices\restfulwebservices\jwt\JwtTokenRequest.java

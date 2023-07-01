@@ -47,21 +47,28 @@ public class JwtSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, HandlerMappingIntrospector introspector) throws Exception {
         
+
         // h2-console is a servlet 
         // https://github.com/spring-projects/spring-security/issues/12310
-    	  return httpSecurity
-                  .authorizeHttpRequests(auth -> auth
-                      .antMatchers("/authenticate").permitAll()
+    	  return httpSecurity 
+    			  .csrf(AbstractHttpConfigurer::disable)
+    			  .sessionManagement(session -> session.
+    					  sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                  .authorizeRequests(auth -> auth
+                      .mvcMatchers("/authenticate").permitAll()
                       .requestMatchers(PathRequest.toH2Console()).permitAll() // h2-console is a servlet and NOT recommended for a production
                       .antMatchers(HttpMethod.OPTIONS,"/**")
                       .permitAll()
-                      .anyRequest()
+                      .anyRequest()	
                       .authenticated())
-                  .csrf(AbstractHttpConfigurer::disable)
-                  .sessionManagement(session -> session.
-                      sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                   .oauth2ResourceServer(
                           OAuth2ResourceServerConfigurer::jwt)
+                  .exceptionHandling(
+                          (ex) -> 
+                              ex.authenticationEntryPoint(
+                                  new BearerTokenAuthenticationEntryPoint())
+                                .accessDeniedHandler(
+                                  new BearerTokenAccessDeniedHandler()))
                   .httpBasic(
                           Customizer.withDefaults())
                   .headers(header -> {header.
@@ -79,8 +86,8 @@ public class JwtSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("as")
-                                .password("{noop}asdf")
+        UserDetails user = User.withUsername("Krishna")
+                                .password("{noop}Krishna123")
                                 .authorities("read")
                                 .roles("USER")
                                 .build();
@@ -95,6 +102,7 @@ public class JwtSecurityConfig {
                         -> jwkSelector.select(jwkSet)));
     }
 
+    
     @Bean
     JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
         return new NimbusJwtEncoder(jwkSource);
