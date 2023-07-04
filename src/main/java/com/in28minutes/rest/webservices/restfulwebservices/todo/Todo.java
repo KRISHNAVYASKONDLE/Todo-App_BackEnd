@@ -74,7 +74,7 @@ public class Todo {
 
 	@Override
 	public String toString() {
-		return "Todo [id=" + id + ", username=" + username + ", description=" + description + ", targetDate="
+		return "Todo [ id=" + id + ", username=" + username + ", description=" + description + ", targetDate="
 				+ targetDate + ", done=" + done + "]";
 	}
 

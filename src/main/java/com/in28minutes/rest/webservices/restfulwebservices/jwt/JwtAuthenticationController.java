@@ -1,5 +1,7 @@
 package com.in28minutes.rest.webservices.restfulwebservices.jwt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JwtAuthenticationController {
-    
+
+	private Logger logger= LoggerFactory.getLogger(getClass());
     private final JwtTokenService tokenService;
     
     private final AuthenticationManager authenticationManager;
@@ -28,8 +31,7 @@ public class JwtAuthenticationController {
                 new UsernamePasswordAuthenticationToken(
                         jwtTokenRequest.username(), 
                         jwtTokenRequest.password());
-        
-//        System.out.println(" hey hey hey reached here for request");
+        logger.info("v4 with latest");
         var authentication = 
                 authenticationManager.authenticate(authenticationToken);
         	
